@@ -50,15 +50,18 @@ cd timeRs
 cargo build --release
 ```
 
-After building, run the binary located in the target/release directory:
+After building, run the binary from the target/release directory:
 
 ```bash
-./target/release/timeRs <PYTHON_FILE_PATH> [OPTIONS]
+./target/release/timeRs [OPTIONS] <PYTHON_FILE_PATH>
 ```
-
+or add it to your user bin:
+```bash
+cp ./target/release/timeRs /usr/local/bin/timeRs && chmod +x /usr/local/bin/timeRs
+```
 ---
 
-## ⚙️ Usage
+## Usage
 
 The only required argument is the path to the Python file.
 
