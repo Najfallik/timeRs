@@ -55,10 +55,11 @@ After building, run the binary from the target/release directory:
 ```bash
 ./target/release/timeRs [OPTIONS] <PYTHON_FILE_PATH>
 ```
-or add it to your user bin or path e.g.:
+or add it to your user bin or path e.g.
 ```bash
 cp ./target/release/timeRs /usr/local/bin/timeRs && chmod +x /usr/local/bin/timeRs
 ```
+for a system-wide installation.
 > [!IMPORTANT]
 > On Windows you need to add Cargo's bin directory to your PATH manually, or move `timeRs` somewhere where Windows will recognize it.
 ---
