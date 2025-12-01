@@ -1,4 +1,4 @@
-use clap::*;
+use clap::{Parser};
 use std::path::Path;
 use std::process::Command;
 use std::thread;
@@ -27,7 +27,7 @@ struct Cli {
 
 fn print_help() {
     println!(
-        r#"timeRs 0.1.0 - A python program timer written in rust.
+        r#"timeRs 0.2.0 - A python program timer written in rust.
 
 Usage: timeRs [OPTIONS] <PYTHON_FILE>
 
@@ -42,21 +42,16 @@ Options:
 
     )
 }
-fn execute(file: &Path) {
-    let _ = if cfg!(target_os = "windows") {
-        Command::new("cmd")
-            .args(["/C", "python3"])
-            .arg(file)
-            .output()
-            .expect("failed to execute process")
-    } else {
-        Command::new("sh")
-            .arg("-c")
-            .arg("python3")
-            .arg(file)
-            .output()
-            .expect("failed to execute process")
-    };
+fn execute(file: &Path) -> Duration {
+    let python_bin = if cfg!(target_os = "windows") { "python" } else { "python3" };
+    let start = Instant::now();
+
+    let _ = Command::new(python_bin)
+        .arg(file)
+        .output()
+        .expect("failed to execute process");
+
+    start.elapsed()
 }
 
 fn main() -> std::io::Result<()> {
@@ -100,11 +95,9 @@ fn main() -> std::io::Result<()> {
                 let mut thread_runs = Vec::with_capacity(cli.reruns);
 
                 for _ in 1..=cli.reruns {
-                    let start = Instant::now();
-                    execute(program);
-                    thread_runs.push(start.elapsed());
+                    let duration = execute(program);
+                    thread_runs.push(duration);
                 }
-
                 thread_runs
             });
             handles.push(handle);
