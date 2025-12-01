@@ -68,7 +68,7 @@ fn main() -> std::io::Result<()> {
     }
 
     if cli.version {
-        println!("timeRs 0.1.0");
+        println!("timeRs 0.2.0");
         return Ok(());
     }
 
